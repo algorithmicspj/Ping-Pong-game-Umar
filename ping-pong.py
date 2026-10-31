@@ -21,9 +21,9 @@ class Player(GameSprite):
     def update_l(self):
         #movement
         keys = key.get_pressed()
-        if keys[K_W] and self.rect.y > 5:
+        if keys[K_w] and self.rect.y > 5:
             self.rect.y -= self.speed
-        if keys[K_S] and self.rect.y < win_height - 80:
+        if keys[K_s] and self.rect.y < win_height - 160:
             self.rect.y += self.speed
 
     def update_r(self):
@@ -31,7 +31,7 @@ class Player(GameSprite):
         keys = key.get_pressed()
         if keys[K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
-        if keys[K_DOWN] and self.rect.y < win_height - 80:
+        if keys[K_DOWN] and self.rect.y < win_height - 160:
             self.rect.y += self.speed
 
 #GAME SCENE
@@ -47,10 +47,25 @@ finish = False
 clock = time.Clock()
 FPS = 60
 
+#Create sprites
+racket1 = Player('racket.png', 30, 200, 4, 50, 150)
+racket2 = Player('racket.png', 530, 200, 4, 50, 150)
+ball = GameSprite('tenis_ball.png', 200, 200, 4, 50, 50)
+
 while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
+
+    if finish != True:
+        window.fill(back)
+        racket1.update_l()
+        racket2.update_r()
+
+        racket1.reset()
+        racket2.reset()
+        ball.reset()
+
 
     display.update()
     clock.tick(FPS)
